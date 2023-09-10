@@ -1,0 +1,152 @@
+:root {
+    --title: #43515c;
+    --primary500: #349eeb;
+    --primary600: #1b5885;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: #43515c;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+ .icon {
+        background: transparent;
+    }
+
+/*table, th, td {
+    background-color: white;
+    border-collapse: collapse;
+    padding: 10px;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+}
+
+tr {
+    border-style: solid;
+    border-color: rgba(133, 135, 145, 0.3);
+    border-width: 1px;
+}*/
+
+table {
+    background-color: white;
+    border-collapse: collapse;
+    padding: 15px;
+    margin: auto;
+    margin-top: 30px;
+    text-align: left;
+}
+
+th {
+    border-bottom: 1px solid;
+    border-color: grey;
+    padding: 15px;
+}
+
+td {
+    border: none;
+    padding: 15px;
+}
+
+
+
+
+
+button {
+    border-style: none;
+    padding: 15px;
+    width: 100px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: var(--primary500);
+    color: white;
+    transition: 0.2s;
+}
+
+button:hover {
+    color: white;
+    background-color: var(--primary600);
+}
+
+.placeholder-headers {
+    color: pink;
+    margin-left: 700px;
+    margin-top: 250px;
+}
+
+a {
+    text-decoration: none;
+    padding: 0px;
+}
+
+p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: transparent;
+}
+
+.form-title {
+    margin: auto;
+    margin-bottom: 20px;
+    color: var(--title);
+    text-align: center;
+}
+
+
+.trash-div {
+    width: 35px;
+    height: 40px;
+    background-image: url('/src/assets/bx-trash-alt.png');
+    background-size: 35px 40px;
+    cursor: pointer;
+}
+
+.trash-div:hover {
+    background-image: url('/src/assets/bxs-trash-alt.png');
+}
+
+
+#searchbar-container {
+    text-align: center;
+    margin-top: 20px;
+    background-color: white;
+}
+
+.view-btn {
+    color: black;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.view-btn:hover {
+    background-color: #ebedee;
+    color: black;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #000000cd;
+
+}
+
+
+.success-msg-cont h3 {
+    color: #4BB543;
+}
+
+.errField {
+    border-style: solid;
+    border-color: #f54245;
+}

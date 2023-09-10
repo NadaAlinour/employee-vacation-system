@@ -1,0 +1,26 @@
+{
+  "name": "first-vue-project",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vue/reactivity": "^3.3.4",
+    "boxicons": "^2.1.4",
+    "chart.js": "^4.3.0",
+    "lodash": "^4.17.21",
+    "usemodal-vue3": "^0.3.7",
+    "vue": "^3.3.4",
+    "vue-chartjs": "^5.2.0",
+    "vue-router": "^4.2.2",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
+    "vite": "^4.3.9"
+  }
+}
