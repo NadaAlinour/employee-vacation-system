@@ -30,21 +30,21 @@ To run the client:
 - navigate to the vacationPresentation directory
 - run "npm install"
 - run "npm run dev"
-
+---
 To prepare the database:
 - In the Microsoft SQL Server Management Studio, create a new database
-- In the VacationPersistence project, open the appsettings.json file and replace {databasename} with your new database name:
+- In the VacationPersistence project, open the appsettings.json file and replace {databasename} with your new database name:  
   ```
   "ConnectionStrings": {
     "DefaultDatabase": "Server=.\\SQLExpress;Database={databasename};MultipleActiveResultSets=True;Trusted_Connection=True;TrustServerCertificate=true"
   },
-  ```
+  ```  
 - navigate to VacationPersistence
 - run "dotnet restore"
 - set as startup project
 - in the nuget console run "Update-Database"
 - refresh and check that the tables have been created in the new database
-
+---
 To run the server:
 - navigate to the root directory
 - run "dotnet build" (build projects and restore dependencies)
