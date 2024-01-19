@@ -25,6 +25,20 @@ A step by step series of examples that tell you how to get a development env run
 example
 ```
 
+### Running the application
+To run the client:
+- cd vacationPresentation
+- npm install
+- npm run dev
+
+(database instructions)
+
+To run the server:
+- navigate to the root directory
+- dotnet build (build projects and restore dependencies)
+- cd vacationAPI
+- dotnet run
+
 
 ## Built With
 
