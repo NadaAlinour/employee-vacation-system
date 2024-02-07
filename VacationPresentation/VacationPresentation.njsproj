@@ -43,6 +43,7 @@
     <Folder Include="src\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\components\" />
+    <Folder Include="src\utils\" />
     <Folder Include="src\router\" />
     <Folder Include="src\store\" />
     <Folder Include="src\views\" />
@@ -80,6 +81,7 @@
     <Content Include="src\main.js" />
     <Content Include="src\router\index.js" />
     <Content Include="src\store\index.js" />
+    <Content Include="src\utils\http.js" />
     <Content Include="src\views\AddEmployeeView.vue" />
     <Content Include="src\views\AddVacationView.vue" />
     <Content Include="src\views\EmployeesView.vue" />

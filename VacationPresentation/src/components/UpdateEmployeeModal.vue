@@ -115,7 +115,7 @@
 
         methods: {
 
-            
+
 
             addSkill(e) {
                 if (e.key === ',' && this.tempSkill) {
@@ -127,7 +127,7 @@
             handleFileChange(e) {
                 console.log("file change");
                 const file = e.target.files[0];
-                this.url = URL.createObjectURL(file); 
+                this.url = URL.createObjectURL(file);
 
                 this.profilePic = e.target.files[0];
 
@@ -180,10 +180,10 @@
                 }
             },
 
-       
+
 
             created() {
-                console.log(this.employee);    
+                console.log(this.employee);
             },
 
         },
@@ -216,9 +216,9 @@
         border-radius: 20px;
     }
 
-    .update-emp-modal button {
-        margin-top: 0px;
-    }
+        .update-emp-modal button {
+            margin-top: 0px;
+        }
 
     .update-emp-form {
         height: 400px;
@@ -287,7 +287,6 @@
         width: 100px;
         cursor: pointer;
         font-weight: bold;
-        
         background-color: #349eeb;
         color: white;
         text-indent: -3px;
@@ -344,5 +343,4 @@
         gap: 15px;
         align-items: center;
     }
-
 </style>

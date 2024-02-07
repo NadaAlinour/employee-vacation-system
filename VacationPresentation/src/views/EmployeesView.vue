@@ -55,6 +55,7 @@
     import PaginationItem from '../components/PaginationItem.vue'
     import SearchbarItem from '../components/SearchbarItem.vue'
     import UpdateEmployeeModal from '../components/UpdateEmployeeModal.vue'
+    import { getEmployees, updateEmployee, deleteEmployee } from '../utils/http'
 
     import { mapActions, mapGetters } from "vuex";
 
@@ -107,53 +108,22 @@
         async created() {
             await this.fetchEmployees();
             console.log(this.employees1);
-   
         },
 
 
         methods: {
 
             async fetchEmployees() {
-
-                console.log(this.$store.state.token, "test")
-
-                var settings = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    }
-                }
-
                 try {
-                    var byteArray;
-                    const response = await fetch('http://localhost:5242/api/employee', settings);
-                    console.log(response.status);
-                    if (response.status === 401) {
-                        console.log("unauthorized action, navigate to unauthorized page");
-                        this.$router.push('/401');
-                        return;
-                    }
-
-                    const data = await response.json();
-
+                    const data = await getEmployees(this.$store.state.token);
+                    console.log('data')
+                    console.log(data)
                     this.employees1 = data;
-
-                    console.log(this.employees1)
-                    //console.log(byteArr) this is a valid image
-                  /*  var blob = new Blob([new Uint8Array(byteArr)], { type: 'image/png' });
-                    this.tempSrc = URL.createObjectURL(blob); */
-
-                    //this.tempSrc = `data: image / png; base64, ${ byteArr }`;
-                    //console.log(this.tempSrc)
-
                 } catch (error) {
-                    console.log(error.message);
+                    console.log(error);
                 }
+             
             },
-
-
-            ...mapActions(["fetchAllEmployees"]),
 
 
             async handleUpdate(empId) {
@@ -184,12 +154,12 @@
 
                     this.employeeToBeUpdated.empID = data.employeeID;
                     this.employeeToBeUpdated.name = data.name,
-                    this.employeeToBeUpdated.email = data.email,
-                    this.employeeToBeUpdated.image = data.image,
-                    this.employeeToBeUpdated.hiredDate = data.hiredDate,
-                    this.employeeToBeUpdated.phone = data.phone,
-                    this.employeeToBeUpdated.vacationPerm = data.isVacationAllowed,
-                    this.employeeToBeUpdated.salary = data.salary
+                        this.employeeToBeUpdated.email = data.email,
+                        this.employeeToBeUpdated.image = data.image,
+                        this.employeeToBeUpdated.hiredDate = data.hiredDate,
+                        this.employeeToBeUpdated.phone = data.phone,
+                        this.employeeToBeUpdated.vacationPerm = data.isVacationAllowed,
+                        this.employeeToBeUpdated.salary = data.salary
 
 
                     console.log(this.employeeToBeUpdated.vacationPerm);
@@ -199,33 +169,20 @@
                     console.log(error.message)
                 }
 
-             
-                   
-            },
 
-            handleDelete(empId) {
+
+            },
+            async handleDelete(empId) {
                 console.log("deleting employee with id: " + empId);
 
-                fetch('http://localhost:5242/api/employee/' + empId, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    }
-                }).then(res => {
-                    res.json();
-                    console.log(res.status);
-                    if (res.status === 401) {
-                        console.log("action unauthorized, navigate to unauthorized page");
-                        this.$router.push('/401');
-                    }
+                try {
+                    const data = await deleteEmployee(this.$store.state.token, empId);
+
+                } catch (error) {
+                    console.log(error);
                 }
 
-                )
-                    .then(data => console.log(data))
-                .catch(err => console.log(err.message))
             },
-
 
 
         }
