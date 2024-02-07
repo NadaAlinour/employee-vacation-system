@@ -70,6 +70,8 @@
 </template>
 
 <script>
+    import { addEmployee } from "../utils/http";
+
     export default {
 
         data() {
@@ -158,19 +160,9 @@
                 formData.append('IsVacationAllowed', true);
 
 
-                const settings = {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-
-                    },
-                    body: formData
-                }
 
                 try {
-                    const response = await fetch('http://localhost:5242/api/employee', settings);
-                    const data = await response.json();
+                    const data = await addEmployee(this.$store.state.token, formData);
 
                     if (data.message) {
                         this.successMsg = data.message;

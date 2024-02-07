@@ -28,6 +28,19 @@ export async function getEmployee(token, id) {
     return response.data;
 }
 
+export async function addEmployee(token, employee) {
+    const response = await axios.post(`${BASE_URL}/employee/`, employee, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+            accept: 'application/json'
+        },
+    });
+    return response.data;
+}
+
 export async function updateEmployee(token, id, employee) {
     const response = await axios.put(`${BASE_URL}/employee/${id}`, employee, {
         method: 'PUT',
