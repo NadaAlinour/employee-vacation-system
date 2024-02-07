@@ -55,7 +55,7 @@
     import PaginationItem from '../components/PaginationItem.vue'
     import SearchbarItem from '../components/SearchbarItem.vue'
     import UpdateEmployeeModal from '../components/UpdateEmployeeModal.vue'
-    import { getEmployees, updateEmployee, deleteEmployee } from '../utils/http'
+    import { getEmployees, getEmployee, deleteEmployee } from '../utils/http'
 
     import { mapActions, mapGetters } from "vuex";
 
@@ -132,34 +132,20 @@
                 this.updateFlag = true;
                 this.currentEmployeeID = empId;
 
-                var settings = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    }
-                }
+                
                 // do update things here and send fetched employee data as prop to child component
                 try {
-                    const response = await fetch('http://localhost:5242/api/employee/' + this.currentEmployeeID, settings);
-                    console.log(response.status);
-                    if (response.status === 401) {
-                        console.log("action unauthorized, navigate to unauthorized page");
-                        this.$router.push('/401');
-                    }
-
-                    const data = await response.json();
-
+                    const data = await getEmployee(this.$store.state.token, this.currentEmployeeID);
                     console.log(data);
-
+                
                     this.employeeToBeUpdated.empID = data.employeeID;
                     this.employeeToBeUpdated.name = data.name,
-                        this.employeeToBeUpdated.email = data.email,
-                        this.employeeToBeUpdated.image = data.image,
-                        this.employeeToBeUpdated.hiredDate = data.hiredDate,
-                        this.employeeToBeUpdated.phone = data.phone,
-                        this.employeeToBeUpdated.vacationPerm = data.isVacationAllowed,
-                        this.employeeToBeUpdated.salary = data.salary
+                    this.employeeToBeUpdated.email = data.email,
+                    this.employeeToBeUpdated.image = data.image,
+                    this.employeeToBeUpdated.hiredDate = data.hiredDate,
+                    this.employeeToBeUpdated.phone = data.phone,
+                    this.employeeToBeUpdated.vacationPerm = data.isVacationAllowed,
+                    this.employeeToBeUpdated.salary = data.salary
 
 
                     console.log(this.employeeToBeUpdated.vacationPerm);

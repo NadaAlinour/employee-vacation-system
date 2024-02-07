@@ -15,19 +15,32 @@ export async function getEmployees(token){
     return response.data;
 }
 
+export async function getEmployee(token, id) {
+    const response = await axios.get(`${BASE_URL}/employee/${id}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+
+        });
+    return response.data;
+}
+
 export async function updateEmployee(token, id, employee) {
-    const response = await axios.put(`${BASE_URL}/employee/${id}`, {
+    const response = await axios.put(`${BASE_URL}/employee/${id}`, employee, {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+            accept: 'application/json'
         },
-        body: employee
     });
     return response.data;
 }
 
-/*update employee*/
 
 
 export async function deleteEmployee(token, id) {

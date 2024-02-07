@@ -88,6 +88,8 @@
 
 
 <script>
+import { updateEmployee } from "../utils/http"
+
     export default {
 
         props: ['empID', 'employee', 'image'],
@@ -157,23 +159,14 @@
                 formData.append('IsVacationAllowed', booleanPerm);
 
 
-                const settings = {
-                    method: 'PUT',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    },
-                    body: formData
-                }
-
                 try {
-                    const response = await fetch('http://localhost:5242/api/employee/' + this.empID, settings);
-                    const data = await response.json();
+                    const data = await updateEmployee(this.$store.state.token, this.empID, formData);
+                    console.log(data);
+                
 
                     if (data.message != "" || data.message != null)
                         this.successMsg = data.message;
 
-                    console.log(data);
 
                 } catch (error) {
                     console.log(error.message);
