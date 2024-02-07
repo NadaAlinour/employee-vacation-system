@@ -31,6 +31,12 @@ To run the client:
 - run "npm install"
 - run "npm run dev"
 ---
+
+To run the server:
+- navigate to VacationAPI
+- run "dotnet run" (this should also restore the dependencies in the referenced projects)
+---
+
 To prepare the database:
 - In the Microsoft SQL Server Management Studio, create a new database
 - In the VacationPersistence project, open the appsettings.json file and replace {databasename} with your new database name:  
@@ -40,16 +46,9 @@ To prepare the database:
   },
   ```  
 - navigate to VacationPersistence
-- run "dotnet restore"
 - set as startup project
 - in the nuget console run "Update-Database"
 - refresh and check that the tables have been created in the new database
----
-To run the server:
-- navigate to the root directory
-- run "dotnet build" (build projects and restore dependencies)
-- run "cd vacationAPI"
-- run "dotnet run"
 
 
 ## Built With
