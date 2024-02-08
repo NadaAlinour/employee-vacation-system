@@ -101,6 +101,8 @@
 </template>
 
 <script>
+    import { updateVacation } from "../utils/http";
+
     export default {
 
         props: ['vacation', 'toggle', 'units', 'vacId'],
@@ -129,7 +131,7 @@
 
         methods: {
 
-            submitForm() {
+            async submitForm() {
                 console.log("update vacation is clicked");
 
                 this.successMsg = "";
@@ -154,46 +156,36 @@
                 console.log(this.vacation.rule.endDate);
                 console.log(this.vacation.vacation.name)
 
+                const body = {
+                    vacation: {
 
-                fetch('http://localhost:5242/api/vacation/' + this.vacId, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
+                        name: this.vacation.vacation.name,
+                        description: this.vacation.vacation.description,
+                        isBasedOnHire: this.vacation.isBasedOnHire
                     },
-                    body: JSON.stringify({
 
-                        vacation: {
+                    hires: this.newHire,
 
-                            name: this.vacation.vacation.name,
-                            description: this.vacation.vacation.description,
-                            isBasedOnHire: this.vacation.isBasedOnHire
-                        },
+                    rule: {
 
-                        hires: this.newHire,
+                        numberOfTimes: this.vacation.rule.numberOfTimes,
+                        duration: this.vacation.rule.duration,
+                        unitID: this.selectedUnit,
+                        startDate: sDate,
+                        endDate: eDate
+                    }
+                }
 
-                        rule: {
+                try {
+                    const data = await updateVacation(this.$store.state.token, this.vacId, body);
+                    console.log(data);
+                    if (data.error != null) {
+                        this.errMsg = data.error;
+                    } else this.successMsg = data.message;
 
-                            numberOfTimes: this.vacation.rule.numberOfTimes,
-                            duration: this.vacation.rule.duration,
-                            unitID: this.selectedUnit,
-                            startDate: sDate,
-                            endDate: eDate
-                        }
-                    })
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-
-                        if (data.error != null) {
-                            this.errMsg = data.error;
-                        }
-
-                        else this.successMsg = data.message;
-
-                    })
-                    .catch(err => console.log(err.message));
+                } catch (error) {
+                    console.log(error);
+                }
 
             },
         }

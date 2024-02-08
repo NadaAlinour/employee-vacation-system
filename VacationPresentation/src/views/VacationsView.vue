@@ -157,14 +157,6 @@
 
             async fetchData(vacID) {
 
-                const settings = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    }
-                }
-
                 try {
                     const data = await getRule(this.$store.state.token, vacID);
 

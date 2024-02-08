@@ -161,6 +161,17 @@ export async function getUnit(token, id) {
     return response.data;
 }
 
+export async function updateVacation(token, id, vacation) {
+    const response = await axios.put(`${BASE_URL}/vacation/${id}`, vacation, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.data;
+}
+
 
 /* requests requests ;) */
 /* stats requests */
