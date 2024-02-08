@@ -189,6 +189,31 @@ export async function addRequest(token, request) {
 
 
 /* stats requests */
+export async function getStatistics(token) {
+    const response = await axios.get(`${BASE_URL}/statistics`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    return response.data;
+}
+
+
+export async function getStatisticsWithRange(token, range) {
+    const response = await axios.post(`${BASE_URL}/statistics`, range, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response;
+}
+
+
 
 /* reports requests */
+
 

@@ -37,6 +37,7 @@
 <script>
 
     import BarchartItem from '../components/BarchartItem.vue'
+    import { getStatistics, getStatisticsWithRange } from "../utils/http";
     export default {
 
 
@@ -44,7 +45,7 @@
             BarchartItem
         },
 
-        mounted() {
+        async mounted() {
 
             const settings = {
                 method: 'GET',
@@ -54,21 +55,17 @@
                 }
             }
 
-            fetch('http://localhost:5242/api/statistics', settings)
-                .then(res => res.json())
-                .then(data => {
-                    //console.log(data);
-                    for (var i = 0; i < data.length; i++) {
-                        this.vacationNames[i] = data[i].name;
-                        this.vacationCounts[i] = data[i].numberOfEmployees;
-                    }
-
-
-                   // console.log(this.vacationNames, "test");
-                   // console.log(this.vacationCounts, "test");
-
-                })
-                .catch(err => console.log(err.message)) 
+            try {
+                const data = await getStatistics(this.$store.state.token);
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    this.vacationNames[i] = data[i].name;
+                    this.vacationCounts[i] = data[i].numberOfEmployees;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            
         },
 
         methods: {
@@ -114,20 +111,14 @@
                 var fromDate = this.fromDate;
                 var toDate = this.toDate;
 
-                const settings = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    },
-                    body: JSON.stringify({
-                        StartDate: fromDate,
-                        EndDate: toDate
-                    })
-                };
+              
+                const body = {
+                    StartDate: fromDate,
+                    EndDate: toDate
+                }
 
                 try {
-                    const response = await fetch('http://localhost:5242/api/statistics', settings);
+                    const response = await getStatisticsWithRange(this.$store.state.token, body);
 
                     if (response.status === 401) {
                         console.log("action unauthorized, navigate to unauthorized page");
@@ -135,7 +126,8 @@
                         return;
                     }
 
-                    const data = await response.json();
+                    const data = response.data;
+                    
                     console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         this.vacationNames[i] = data[i].name;
