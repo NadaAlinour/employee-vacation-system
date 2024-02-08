@@ -33,7 +33,15 @@
                     
 
                 chartOptions: {
-                    responsive: true
+                    responsive: true,
+                    scales: {
+                        y: {
+                            ticks: {
+                                beginAtZero: true, // Start at zero
+                                stepSize: 1 // Increase by 1
+                            }
+                        }
+                    }
                 },
 
             }
