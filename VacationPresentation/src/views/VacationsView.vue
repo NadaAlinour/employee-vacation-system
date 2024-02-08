@@ -79,7 +79,7 @@
     import SearchbarItem from '../components/SearchbarItem.vue'
     import ViewRulesModal from '../components/ViewRulesModal.vue'
     import UpdateVacationItem from '../components/UpdateVacationItem.vue'
-    import { getVacations } from "../utils/http";
+    import { getVacations, getVacation, getRule, getRuleHire, getUnits, getUnit, deleteVacation } from "../utils/http";
 
     export default {
 
@@ -150,7 +150,6 @@
                 console.log(error);
             }
            
-
         },
 
 
@@ -167,8 +166,7 @@
                 }
 
                 try {
-                    const response = await fetch('http://localhost:5242/api/rule/' + vacID, settings);
-                    const data = await response.json();
+                    const data = await getRule(this.$store.state.token, vacID);
 
                     console.log(data);
 
@@ -197,8 +195,8 @@
                 // fetch unit by unitID
                 if (this.rule.unitID != null) {
                     try {
-                        const response = await fetch('http://localhost:5242/api/unit/' + this.rule.unitID, settings);
-                        const data = await response.json();
+
+                        const data = await getUnit(this.$store.state.token, this.rule.unitID);
 
                         console.log(data);
                         this.rule.unitName = data.unitName;
@@ -210,7 +208,7 @@
             },
 
 
-            handleView(vacId) {
+            async handleView(vacId) {
                 this.modalFlag1 = true;
 
                 // get rule for specific vacation
@@ -222,28 +220,17 @@
                         this.isBasedOnHire = this.vacations[i].isBasedOnHire;
                 }
 
-                const settings = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    }
-                }
+               
 
                 if (this.isBasedOnHire) {
                     // send req to get hire rule
-                    fetch('http://localhost:5242/api/hire/' + vacId, settings)
-                        .then(res => {
-                            console.log(res.status)
-                            res.json();
-
-                        })
-                        .then(data => {
-                            // this.hire = data;
-                            this.hire = data;
-                            console.log(this.hire);
-                        })
-                        .catch(err => console.log(err.message))
+                    try {
+                        const data = await getRuleHire(this.$store.state.token, vacId);
+                        this.hire = data;
+                    } catch (error) {
+                        console.log(error);async
+                    }
+                   
 
                 } else {
                     this.fetchData(vacId);
@@ -259,55 +246,43 @@
 
                 this.vacId = vacId;
 
-                const settings = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    }
-                }
-
-                console.log("update was clicked with vac id =", vacId);
-
                 try {
-                    const response = await fetch('http://localhost:5242/api/vacation/' + vacId, settings);
-                    console.log(response.status)
+                    const response = await getVacation(this.$store.state.token, vacId);
 
                     if (response.status === 401) {
-                        console.log("action unauthorized, navigate to unauthorized page");
-                        this.$router.push('/401');
-                        return;
-                    }
+                       console.log("action unauthorized, navigate to unauthorized page");
+                       this.$router.push('/401');
+                       return;
+                   }
 
-                    const data = await response.json();
-                    this.vacationToBeUpdated.vacation.name = data.name;
-                    this.vacationToBeUpdated.vacation.description = data.description;
-                    this.vacationToBeUpdated.isBasedOnHire = data.isBasedOnHire;
+                    this.vacationToBeUpdated.vacation.name = response.data.name;
+                    this.vacationToBeUpdated.vacation.description = response.data.description;
+                    this.vacationToBeUpdated.isBasedOnHire = response.data.isBasedOnHire;
 
-                    isBasedOnHire = data.isBasedOnHire;
+                    isBasedOnHire = response.data.isBasedOnHire;
 
                 } catch (error) {
                     console.log(error.message);
+                   
                 }
 
 
                 if (isBasedOnHire == true) {
                     // get hire rule
-                    fetch('http://localhost:5242/api/hire/' + vacId, settings)
-                        .then(res => res.json())
-                        .then(data => {
-                            // this.hire = data;
-                            this.vacationToBeUpdated.hires = data;
-                            console.log(this.vacationToBeUpdated.hires);
-                        })
-                        .catch(err => console.log(err.message));
+                    try {
+                        const data = await getRuleHire(this.$store.state.token, vacId);
+                        this.vacationToBeUpdated.hires = data;
 
-                    this.toggleVacationRule.toggleHire = true;
+
+                        this.toggleVacationRule.toggleHire = true;
+                    } catch (error) {
+                        console.log(error);
+                    }
+                   
 
                 } else if (isBasedOnHire == false) {
                     try {
-                        const response = await fetch('http://localhost:5242/api/rule/' + vacId, settings);
-                        const data = await response.json();
+                        const data = await getRule(this.$store.state.token, vacId);
                         // this.hire = data;
                         this.vacationToBeUpdated.rule.numberOfTimes = data.numberOfTimes;
                         this.vacationToBeUpdated.rule.duration = data.duration;
@@ -333,8 +308,7 @@
                     if (this.toggleVacationRule.toggleUnit == true) {
                         //fetch units
                         try {
-                            const response = await fetch('http://localhost:5242/api/unit', settings);
-                            const data = await response.json();
+                            const data = await getUnits(this.$store.state.token);
                             this.units = data;
                             console.log(data);
 
@@ -350,29 +324,21 @@
             
                 },
 
-                handleDelete(vacId) {
-                    console.log("deleting vacations with id: " + vacId);
-
-
-                    fetch('http://localhost:5242/api/vacation/' + vacId, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${this.$store.state.token}`
-                        }
-                    }).then(res => {
-                        console.log(res.status);
-                        res.json();
-                        if (res.status === 401) {
-                            console.log("action unauthorized, navigate to unauthorized page");
-                            this.$router.push('/401');
-                        }
-                    })
-                        .then(data => console.log(data))
-                        .catch(err => console.log(err.message))
-                },
+            async handleDelete(vacId) {
+                console.log("deleting vacations with id: " + vacId);
+                try {
+                    const response = await deleteVacation(this.$store.state.token, vacId);
+                    if (response.status === 401) {
+                        console.log("action unauthorized, navigate to unauthorized page");
+                        this.$router.push('/401');
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
 
             },
+
+        },
 
 
         }

@@ -95,6 +95,71 @@ export async function getVacations(token) {
     return response.data;
 }
 
+export async function getVacation(token, id) {
+    const response = await axios.get(`${BASE_URL}/vacation/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response;
+}
+
+export async function getRuleHire(token, id) {
+    const response = await axios.get(`${BASE_URL}/hire/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.data;
+}
+
+export async function getRule(token, id) {
+    const response = await axios.get(`${BASE_URL}/rule/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.data;
+}
+
+export async function deleteVacation(token, id) {
+    const response = await axios.delete(`${BASE_URL}/vacation/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response;
+}
+
+export async function getUnits(token) {
+    const response = await axios.get(`${BASE_URL}/unit`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.data;
+}
+
+export async function getUnit(token, id) {
+    const response = await axios.get(`${BASE_URL}/unit/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.data;
+}
 
 
 /* requests requests ;) */
