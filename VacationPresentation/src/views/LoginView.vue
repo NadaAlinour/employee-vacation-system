@@ -46,6 +46,7 @@
 <script>
 
     import 'boxicons';
+    import { login } from "../utils/http";
 
     export default {
 
@@ -83,26 +84,16 @@
 
             async fetchAdmin() {
 
-                const settings = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: this.email,
-                        password: this.password
-                    })
-                };
 
                 try {
-                    const response = await fetch('http://localhost:5242/api/login', settings);
-                    const data = await response.json();
+                    const data = await login(this.email, this.password);
+                    console.log(data);
+                 
 
                     if (data.message)
                         this.errMsg = data.message;
 
                     else this.token = data.token;
-                    //console.log(this.token);
 
 
                 } catch (error) {

@@ -2,9 +2,25 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5242/api';
 
+/* authentication requests */
+export async function login(email, password) {
+    const user = {
+        email: email,
+        password: password
+    }
+    const response = await axios.post(`${BASE_URL}/login`, user, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+
+    })
+    return response.data;
+}
+
 
 /* employee requests */
-export async function getEmployees(token){
+export async function getEmployees(token) {
     const response = await axios.get(`${BASE_URL}/employee`, {
         method: 'GET',
         headers: {
@@ -66,3 +82,10 @@ export async function deleteEmployee(token, id) {
     })
     return response.data;
 }
+
+
+/* vacation requests */
+/* requests requests ;) */
+/* stats requests */
+/* reports requests */
+
