@@ -121,6 +121,7 @@
 
 <script>
     import ViewRulesModal from '../components/ViewRulesModal.vue';
+import { getRule, getRuleHire, getUnit, getVacations, searchEmployees, searchVacations } from '../utils/http';
 
     export default {
 
@@ -276,22 +277,8 @@
 
             async fetchUnit() {
 
-                const settings = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    }
-                }
-
                 try {
-                    const response = await fetch('http://localhost:5242/api/unit/' + this.rule.unitID, settings);
-                    if (response.status === 401) {
-                        console.log("action unauthorized, navigate to unauthorized page");
-                        this.$router.push('/401');
-                        return;
-                    }
-                    const data = await response.json();
+                    const data = await getUnit(this.$store.state.token, this.rule.unitID);
                     this.rule.unitName = data.unitName;
                     console.log(this.rule.unitName);
                 } catch (error) {
@@ -301,17 +288,8 @@
 
             async fetchAllVacations() {
 
-                const settings = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    }
-                }
-
                 try {
-                    const response = await fetch('http://localhost:5242/api/vacation', settings);
-                    const data = await response.json();
+                    const data = await getVacations(this.$store.state.token);
                     console.log(data);
                     this.vacations = data;
                 } catch (error) {
@@ -321,16 +299,8 @@
 
             async fetchEmployees(vacId) {
 
-                const settings = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    }
-                }
-
                 try {
-                    const response = await fetch('http://localhost:5242/api/search/' + vacId, settings);
+                    const response = await searchEmployees(this.$store.state.token, vacId);
 
                     if (response.status === 401) {
                         console.log("action unauthorized, navigate to unauthorized page");
@@ -338,11 +308,9 @@
                         return;
                     }
 
-                    const data = await response.json();
+                    const data = response.data;
                     console.log(data);
                     this.specificEmployees = data;
-
-
 
                 } catch (error) {
                     console.log(error.message);
@@ -355,20 +323,14 @@
                 var startDate = this.fromDate;
                 var endDate = this.toDate;
 
-                const settings = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    },
-                    body: JSON.stringify({
-                        StartDate: startDate,
-                        EndDate: endDate
-                    })
+
+                const body = {
+                    StartDate: startDate,
+                    EndDate: endDate
                 }
 
                 try {
-                    const response = await fetch('http://localhost:5242/api/search/' + this.empId, settings);
+                    const response = await searchVacations(this.$store.state.token, this.empId, body);
 
                     if (response.status === 401) {
                         console.log("action unauthorized, navigate to unauthorized page");
@@ -376,7 +338,7 @@
                         return;
                     }
 
-                    const data = await response.json();
+                    const data = response.data;
                     console.log(data);
 
                     if (data.message) {
@@ -393,17 +355,8 @@
 
             async fetchVacationRule(vacID) {
 
-                const settings = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    }
-                }
-
                 try {
-                    const response = await fetch('http://localhost:5242/api/rule/' + vacID, settings);
-                    const data = await response.json();
+                    const data = await getRule(this.$store.state.token, vacID);
                     console.log(data);
                  
                     this.rule.numberOfTimes = data.numberOfTimes;
@@ -425,17 +378,8 @@
 
             async fetchVacationHire(vacID) {
 
-                const settings = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    }
-                }
-
                 try {
-                    const response = await fetch('http://localhost:5242/api/hire/' + vacID, settings);
-                    const data = await response.json();
+                    const data = await getRuleHire(this.$store.state.token, vacID);
                     console.log(data);
                     this.hire = data;
                     console.log(this.hire);

@@ -214,6 +214,26 @@ export async function getStatisticsWithRange(token, range) {
 
 
 
-/* reports requests */
+/* reports/search requests */
+export async function searchEmployees(token, id) {
+    const response = await axios.get(`${BASE_URL}/search/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response;
+}
 
+export async function searchVacations(token, id, dateRange) {
+    const response = await axios.post(`${BASE_URL}/search/${id}`, dateRange, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response;
+}
 
