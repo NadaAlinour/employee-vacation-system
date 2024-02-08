@@ -62,12 +62,6 @@
 
             </div>
 
-           
-
-            
-
-
-
         </form>
 
     </div>
@@ -75,6 +69,7 @@
 </template>
 
 <script>
+    import { getVacations, addRequest } from "../utils/http";
 
     export default {
 
@@ -105,32 +100,22 @@
             }
         },
 
-        mounted() {
+        async mounted() {
             // fetch vacation names to populate select options
-            const settings = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${this.$store.state.token}`
-                }
+            try {
+                const data = await getVacations(this.$store.state.token);
+                this.vacations = data;
+            } catch (error) {
+                console.log(error);
             }
-
-            fetch('http://localhost:5242/api/vacation', settings)
-                .then(res => res.json())
-                .then(data => {
-                    this.vacations = data
-                    console.log(this.vacations)
-                }).catch(err => console.log(err.message))
+          
         },
 
         methods: {
 
 
-            submitForm() {
+            async submitForm() {
                 console.log("request submit is clicked");
-
-               /* console.log(this.isValid, "isValid")
-                console.log(this.isSuccess, "isSuccess") */
 
                 this.errMsg = "";
                 this.successMsg = "";
@@ -169,41 +154,29 @@
 
                 // get vacation id from vacation type
 
+                const body = {
+                    EmployeeID: this.empID,
+                    VacationID: this.selectedVacID,
+                    StartDate: startDate,
+                    ExpectedEndDate: expEndDate
+                    //ActualEndDate: "2023-12-01"
+                }
 
-                fetch('http://localhost:5242/api/request', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$store.state.token}`
-                    },
-                    body: JSON.stringify({
-                        EmployeeID: this.empID,
-                        VacationID: this.selectedVacID,
-                        StartDate: startDate,
-                        ExpectedEndDate: expEndDate
-                        //ActualEndDate: "2023-12-01"
-                    })
-                })
-                    .then(res => res.json())
+                try {
+                    const data = await addRequest(this.$store.state.token, body);
+                    if (data.errorMessage != null) {
+                        console.log(data.errorMessage);
+                        this.errMsg = data.errorMessage;
+                        this.isValid = false;
+                    } else {
+                        this.successMsg = data.message;
+                        this.isSuccess = true;
+                    }
 
-                    .then(data => {
-
-                        if (data.errorMessage != null) {
-                            console.log(data.errorMessage);
-                            this.errMsg = data.errorMessage;
-                            this.isValid = false;
-                        } else {
-                            console.log(data.message, "testestwaesfasdfsdf");
-                            this.successMsg = data.message;
-                            this.isSuccess = true;
-                        }
-
-                        console.log(data)
-
-                    })
-                    .catch(err => console.log(err))
-
-               
+                } catch (error) {
+                    console.log(error);
+                }
+              
 
             },
 

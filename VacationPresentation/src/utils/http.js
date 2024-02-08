@@ -174,6 +174,20 @@ export async function updateVacation(token, id, vacation) {
 
 
 /* requests requests ;) */
+export async function addRequest(token, request) {
+    const response = await axios.post(`${BASE_URL}/request`, request, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    return response.data;
+}
+
+
+
 /* stats requests */
 /* reports requests */
 
