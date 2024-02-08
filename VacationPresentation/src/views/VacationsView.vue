@@ -79,6 +79,7 @@
     import SearchbarItem from '../components/SearchbarItem.vue'
     import ViewRulesModal from '../components/ViewRulesModal.vue'
     import UpdateVacationItem from '../components/UpdateVacationItem.vue'
+    import { getVacations } from "../utils/http";
 
     export default {
 
@@ -140,18 +141,16 @@
             }
         },
 
-        mounted() {
-            const settings = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${this.$store.state.token}`
-                }
+        async mounted() {
+
+            try {
+                const data = await getVacations(this.$store.state.token);
+                this.vacations = data;
+            } catch (error) {
+                console.log(error);
             }
-            fetch('http://localhost:5242/api/vacation', settings)
-                .then(res => res.json())
-                .then(data => this.vacations = data)
-                .catch(err => console.log(err.message))
+           
+
         },
 
 

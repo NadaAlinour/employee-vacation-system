@@ -71,7 +71,6 @@ export async function updateEmployee(token, id, employee) {
 }
 
 
-
 export async function deleteEmployee(token, id) {
     const response = await axios.delete(`${BASE_URL}/employee/${id}`, {
         method: 'DELETE',
@@ -85,6 +84,19 @@ export async function deleteEmployee(token, id) {
 
 
 /* vacation requests */
+export async function getVacations(token) {
+    const response = await axios.get(`${BASE_URL}/vacation`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.data;
+}
+
+
+
 /* requests requests ;) */
 /* stats requests */
 /* reports requests */
