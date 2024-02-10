@@ -114,7 +114,8 @@ Adding a new vacation request for an employee
 
 Vacation-employee statistics
 
-![image](https://github.com/NadaAlinour/employee-vacation-system/assets/48387157/632c5e0c-993f-4b06-97ac-61f60e80ab70)  
+![image](https://github.com/NadaAlinour/employee-vacation-system/assets/48387157/631b5520-220e-4a6f-8193-7d3bdcc39ce0)
+
 
 ---
 
