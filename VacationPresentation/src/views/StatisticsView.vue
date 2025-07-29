@@ -65,7 +65,7 @@
             } catch (error) {
                 console.log(error);
             }
-            
+
         },
 
         methods: {
@@ -111,7 +111,7 @@
                 var fromDate = this.fromDate;
                 var toDate = this.toDate;
 
-              
+
                 const body = {
                     StartDate: fromDate,
                     EndDate: toDate
@@ -127,7 +127,7 @@
                     }
 
                     const data = response.data;
-                    
+
                     console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         this.vacationNames[i] = data[i].name;
@@ -136,7 +136,7 @@
                 } catch (error) {
                     console.log(error.message);
                 }
-               
+
 
                 this.forceRerender();
 
@@ -158,7 +158,7 @@
                 fromErr: false,
                 toErr: false,
 
-              
+
             }
         }
 
@@ -181,11 +181,11 @@
         text-align: center;
     }
 
-    .statistics-container h2 {
-        margin: auto;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
+        .statistics-container h2 {
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
     .stats-container-b label {
         margin-right: 5px;
@@ -202,7 +202,8 @@
     }
 
     .chart {
-        margin: 20px;
+        margin: 50px;
+        margin-top: 0px;
     }
 
     .chart-btn {
@@ -210,7 +211,8 @@
         padding-top: 10px;
         padding-bottom: 10px;
     }
-    .err-msg-cont h3{
+
+    .err-msg-cont h3 {
         color: #f54245;
     }
 
@@ -221,5 +223,4 @@
     .statistics-container input {
         margin-right: 10px;
     }
-
 </style>

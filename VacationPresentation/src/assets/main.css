@@ -13,24 +13,29 @@
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+.main-container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+}
+
+.sidebar-container {
+    width: 250px;
+}
+
+.main-content {
+    padding-left: 20px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
  .icon {
         background: transparent;
     }
 
-/*table, th, td {
-    background-color: white;
-    border-collapse: collapse;
-    padding: 10px;
-    margin: auto;
-    margin-top: 50px;
-    text-align: center;
-}
 
-tr {
-    border-style: solid;
-    border-color: rgba(133, 135, 145, 0.3);
-    border-width: 1px;
-}*/
 
 table {
     background-color: white;

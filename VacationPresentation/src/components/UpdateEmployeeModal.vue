@@ -35,19 +35,6 @@
 
                 <div class="container-2a">
 
-                    <!--<label>Date</label>
-                      <input type="date" placeholder="Date Hired" id="update-emp-date" v-model="employee.dateHired"/>
-
-                     -->
-                    <!--<div class="skills-parent-container">
-
-                    <label>Skills</label>
-                    <input type="text" placeholder="Press Alt + , to add a skill" v-model="tempSkill" @keyup="addSkill" />
-                          <div v-for="skill in skills" :key="skill" class="skills-container">
-                              {{ skill }}
-                          </div>
-                      </div>
-                      -->
                     <!-- Update vacation perms -->
                     <div class="perm-container">
                         <div class="perm-label">
@@ -79,9 +66,12 @@
 
                     </div>
 
+                    <div class="upd-emp-exit-btn-container">
+                        <button class="exit-btn" type="button" @click="$emit('close-modal')" id="upd-exit-btn">Exit</button>
+                    </div>
+
                 </div>
             </form>
-            <button class="exit-btn" type="button" @click="$emit('close-modal')" id="upd-exit-btn">Exit</button>
         </div>
     </div>
 </template>
@@ -174,7 +164,6 @@ import { updateEmployee } from "../utils/http"
             },
 
 
-
             created() {
                 console.log(this.employee);
             },
@@ -188,25 +177,23 @@ import { updateEmployee } from "../utils/http"
 <style>
 
     .modal-overlay {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        background-color: #000000da;
         display: flex;
         justify-content: center;
-        background-color: #000000da;
+        align-items: center;
     }
 
     .update-emp-modal {
         text-align: center;
         background-color: white;
-        height: 650px;
+        height: 550px;
         width: 800px;
         margin-top: 1%;
         margin-left: 15%;
         padding: 60px 0;
         border-radius: 20px;
+        
+
     }
 
         .update-emp-modal button {
@@ -309,6 +296,13 @@ import { updateEmployee } from "../utils/http"
         padding: 15px;
     }
 
+    .upd-emp-exit-btn-container {
+        width: 55%;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+    }
+
 
     #upd-exit-btn {
         color: black;
@@ -317,7 +311,7 @@ import { updateEmployee } from "../utils/http"
         border-width: 2px;
         padding-top: 13px;
         padding-bottom: 13px;
-        margin-top: 175px;
+        margin-top: 10px;
     }
 
         #upd-exit-btn:hover {

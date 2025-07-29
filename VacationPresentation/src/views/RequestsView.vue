@@ -38,26 +38,30 @@
                 </div>
             </div>
 
+           
+
             <div class="btn-err-req">
-                <div>
+
+                <div class="add-req-btn">
                     <button type="submit">Add Request</button>
                 </div>
 
+                <div class="msg-container">
 
-
-                <div class="success-msg-container2" v-if="isSuccess">
-                    <div class="success-msg">
-                        <p>{{successMsg}}</p>
-                    </div>
-                </div>
-
-                <div class="err-msg-container">
-
-                    <!-- request refused error -->
-                    <div class="error-msg2" v-if="!isValid">
-                        <p>{{errMsg}}</p>  <!--do i need to bind something-->
+                    <div class="success-msg-container2" v-if="isSuccess">
+                        <div class="success-msg">
+                            <p>{{successMsg}}</p>
+                        </div>
                     </div>
 
+                    <div class="err-msg-container">
+
+                        <!-- request refused error -->
+                        <div class="error-msg2" v-if="!isValid">
+                            <p>{{errMsg}}</p>  <!--do i need to bind something-->
+                        </div>
+
+                    </div>
                 </div>
 
             </div>
@@ -189,11 +193,9 @@
 
 
     .add-req-container {
-        width: 85%;
-        height: 100vh;
-        position: absolute;
-        right: 0;
-        background-color: white;
+        height: 100%;
+        width: 100%;
+        
     }
 
         .add-req-container h2 {
@@ -205,23 +207,22 @@
         margin-top: 50px;
         display: flex;
         flex-direction: column;
-        background-color: white;
-        margin-left: 155px;
+        justify-content: space-between;
     }
 
     .req-container-1 {
         display: flex;
         flex-direction: column;
         width: 50%;
-        margin-right: 50px;
-        background-color: white;
+        align-items: center;
+        
     }
 
     .req-container-2 {
         display: flex;
         flex-direction: column;
         width: 50%;
-        background-color: white;
+        align-items: center;
     }
 
 
@@ -237,7 +238,6 @@
         padding: 15px;
         border: 1px solid rgba(0,0,0,.2);
         margin-bottom: 20px;
-        
     }
 
     .add-req-form select {
@@ -255,24 +255,36 @@
             display: flex;
         }
 
+        @media(max-width: 670px) {
+            .req-container-parent {
+                flex-wrap: wrap;
+            }
+        }
+
+        
+
     .add-req-container button {
         border-radius: 0px;
         padding-top: 0px;
         padding-bottom: 0px;
         height: 60px;
-        /*position: absolute;*/
-        /* margin-left: 320px;*/
+    }
+
+    .msg-container {
+        width: 100%;
     }
 
 
     .btn-err-req {
         display: flex;
-        gap: 15px;
         align-items: center;
+        justify-content: left;
+        gap: 15px;
+        padding-left: 140px;
     }
 
     .btn-err-req .err-msg-container {
-        width: 75%;
+        width: 30%;
     }
 
     .btn-err-req .success-msg-container2 {
@@ -299,7 +311,7 @@
         border-color: #ff8282;
         background-color: rgba(255, 0, 0, 0.2);
         text-align: center;
-        width: 50%;
+        width: 250px;
         margin-top: 10px;
         margin-bottom: 10px;
         padding: 20px;
