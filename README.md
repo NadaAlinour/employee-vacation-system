@@ -128,3 +128,12 @@ Display employees that requested a specific vacation
 Display vacations requested by a specific employee within a specified period
 
 ![image](https://github.com/NadaAlinour/employee-vacation-system/assets/48387157/0a03ba6c-a963-4d9d-80c1-af12e61712d2)
+
+---
+## API Documentation
+You can access the Swagger UI after running the API project at http://localhost:<port>/swagger/index.html
+
+Example request:
+<img width="3633" height="1662" alt="image" src="https://github.com/user-attachments/assets/bfce6bf9-31d4-4acf-b3ae-3c0310285208" />
+
+
