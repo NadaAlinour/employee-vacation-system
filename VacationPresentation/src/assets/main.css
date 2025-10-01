@@ -10,32 +10,27 @@
     padding: 0;
     background-color: white;
     color: #43515c;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.main-container {
-    display: flex;
-    flex-direction: row;
-    min-height: 100vh;
+.icon {
+    background: transparent;
 }
 
-.sidebar-container {
-    width: 250px;
+/*table, th, td {
+    background-color: white;
+    border-collapse: collapse;
+    padding: 10px;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
 }
 
-.main-content {
-    padding-left: 20px;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-}
-
- .icon {
-        background: transparent;
-    }
-
-
+tr {
+    border-style: solid;
+    border-color: rgba(133, 135, 145, 0.3);
+    border-width: 1px;
+}*/
 
 table {
     background-color: white;
@@ -72,10 +67,10 @@ button {
     transition: 0.2s;
 }
 
-button:hover {
-    color: white;
-    background-color: var(--primary600);
-}
+    button:hover {
+        color: white;
+        background-color: var(--primary600);
+    }
 
 .placeholder-headers {
     color: pink;
@@ -109,9 +104,9 @@ p {
     cursor: pointer;
 }
 
-.trash-div:hover {
-    background-image: url('/src/assets/bxs-trash-alt.png');
-}
+    .trash-div:hover {
+        background-image: url('/src/assets/bxs-trash-alt.png');
+    }
 
 
 #searchbar-container {
@@ -129,10 +124,10 @@ p {
     padding-bottom: 13px;
 }
 
-.view-btn:hover {
-    background-color: #ebedee;
-    color: black;
-}
+    .view-btn:hover {
+        background-color: #ebedee;
+        color: black;
+    }
 
 .modal-overlay {
     position: fixed;
@@ -143,7 +138,6 @@ p {
     display: flex;
     justify-content: center;
     background-color: #000000cd;
-
 }
 
 
